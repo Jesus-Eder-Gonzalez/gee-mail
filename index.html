@@ -1,16 +1,59 @@
 <html>
 	<head>
+		<title> Gee-mail </title>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
     <script>
       window.onload = function(){
+      	//document.write(window.geemails);
+      	//.subject, .sender, .body, .date
+      	//document.write(window.geemails.length)
+      	//This loop will create a table in the html document to display the email information
+	  	var table = document.createElement('table');
+
+	  	var thead = document.createElement('thead');
+
+	  	table.appendChild(thead);
+
+	  	var senderHeader = document.createElement("th")
+	  	var subjectHeader = document.createElement("th")
+	    thead.appendChild(senderHeader).appendChild(document.createTextNode("Sender"));
+	    thead.appendChild(subjectHeader).appendChild(document.createTextNode("Subject"));
+	    thead.appendChild(document.createElement("th")).appendChild(document.createTextNode("Date"));
+
+		for (var i = 0; i < window.geemails.length; i++){
+		    //var newRow = document.createElement('tr');   
+		    var newRow = table.insertRow()
+			var senderCol = document.createElement('td');
+		    var subjectCol = document.createElement('td');
+		    var dateCol = document.createElement('td');
+
+		    var sender = document.createTextNode(window.geemails[i].sender);
+		    var subject = document.createTextNode(window.geemails[i].subject);
+		    var date = document.createTextNode(window.geemails[i].date);
+
+		    senderCol.appendChild(sender);
+		    subjectCol.appendChild(subject);
+		    dateCol.appendChild(date);
+
+		    newRow.appendChild(senderCol);
+		    newRow.appendChild(subjectCol);
+		    newRow.appendChild(dateCol);
+
+		    table.appendChild(newRow);
+		}
+		document.body.appendChild(table);
+
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
         
       };
+
     </script>
 	</head>
 	<body>
+		<h1> Gee-mail </h1>
+		<hr>
 		<div class="container" id="main">
 			Build Me!
 		</div>
