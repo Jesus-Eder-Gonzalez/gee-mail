@@ -5,9 +5,7 @@
 		<link href="css/style.css" rel="stylesheet" media="screen">
     <script>
       window.onload = function(){
-      	//document.write(window.geemails);
-      	//.subject, .sender, .body, .date
-      	//document.write(window.geemails.length)
+
       	//This loop will create a table in the html document to display the email information
 	  	var table = document.createElement('table');
 
@@ -20,28 +18,37 @@
 	    thead.appendChild(senderHeader).appendChild(document.createTextNode("Sender"));
 	    thead.appendChild(subjectHeader).appendChild(document.createTextNode("Subject"));
 	    thead.appendChild(document.createElement("th")).appendChild(document.createTextNode("Date"));
+	    thead.appendChild(document.createElement("th")).appendChild(document.createTextNode("Message"));
 
-		for (var i = 0; i < window.geemails.length; i++){
-		    //var newRow = document.createElement('tr');   
-		    var newRow = table.insertRow()
-			var senderCol = document.createElement('td');
-		    var subjectCol = document.createElement('td');
-		    var dateCol = document.createElement('td');
+			for (var i = 0; i < window.geemails.length; i++){
 
-		    var sender = document.createTextNode(window.geemails[i].sender);
-		    var subject = document.createTextNode(window.geemails[i].subject);
-		    var date = document.createTextNode(window.geemails[i].date);
+			    var newRow = table.insertRow()
 
-		    senderCol.appendChild(sender);
-		    subjectCol.appendChild(subject);
-		    dateCol.appendChild(date);
+				var senderCol = document.createElement('td');
+			    var subjectCol = document.createElement('td');
+			    var dateCol = document.createElement('td');
+			    var messageCol = document.createElement('td');
 
-		    newRow.appendChild(senderCol);
-		    newRow.appendChild(subjectCol);
-		    newRow.appendChild(dateCol);
 
-		    table.appendChild(newRow);
-		}
+			    var sender = document.createTextNode(window.geemails[i].sender);
+			    var subject = document.createTextNode(window.geemails[i].subject);
+			    var date = document.createTextNode(window.geemails[i].date);
+			    var message = document.createTextNode(window.geemails[i].body);
+
+			    senderCol.appendChild(sender);
+			    subjectCol.appendChild(subject);
+			    dateCol.appendChild(date);
+			    messageCol.appendChild(message);
+
+			    newRow.appendChild(senderCol);
+			    newRow.appendChild(subjectCol);
+			    newRow.appendChild(dateCol);
+			    newRow.appendChild(messageCol);
+
+			    table.appendChild(newRow);
+			}
+		document.body.appendChild(document.createTextNode("Total Messages: " + window.geemails.length));
+		document.body.appendChild(document.createElement('hr'));
 		document.body.appendChild(table);
 
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
@@ -53,9 +60,9 @@
 	</head>
 	<body>
 		<h1> Gee-mail </h1>
-		<hr>
+
 		<div class="container" id="main">
-			Build Me!
+			
 		</div>
 	</body>
 </html>
