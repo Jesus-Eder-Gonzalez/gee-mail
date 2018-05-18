@@ -6,7 +6,6 @@
     <script>
       window.onload = function(){   	
 
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
         //Creates the column headers for my inbox
@@ -14,6 +13,7 @@
         	for (var i = 0; i < headList.length; i++){
 			head.appendChild(document.createElement("th")).appendChild(document.createTextNode(headList[i]));
 			}
+			head.className = "head";
         }
 
         function appender(parent, child){
@@ -22,10 +22,8 @@
 			}
         }
 
-        //Adds a row to the inbox table to simulate receiving message
         function addRow(i, table) {
 
-			var index = document.createTextNode(i+1);
 			var body = window.geemails[i].body;
 			bodies[i] = body;
 			var sender = document.createTextNode(window.geemails[i].sender);
@@ -34,23 +32,27 @@
 			var message = document.createTextNode(body.substring(0,100));
 
 			var newRow = table.insertRow();
-			var indexCol = document.createElement('td');
+			newRow.className = "unread";
 			var senderCol = document.createElement('td');
 			var subjectCol = document.createElement('td');
 			var dateCol = document.createElement('td');
+			dateCol.className = "date";
 			var messageCol = document.createElement('td');
 
-			appender([indexCol,senderCol,subjectCol,dateCol,messageCol],[index,sender,subject,date,message]);
-			appender([newRow,newRow,newRow,newRow,newRow],[indexCol,senderCol,subjectCol,dateCol,messageCol]);
+			appender([senderCol,subjectCol,dateCol,messageCol],[sender,subject,date,message]);
+			appender([newRow,newRow,newRow,newRow],[senderCol,subjectCol,dateCol,messageCol]);
 
 			messageCol.addEventListener("click", showFullMessage);
-			table.appendChild(newRow);
 		}
 
 		//This function checks to see if the body text is truncated or not. If it is, it reveals the full message. Otherwise it truncates the message.
 		function showFullMessage() {
 
 		  var full = bodies[this.parentNode.rowIndex];
+
+		  if (this.parentNode.className == 'unread') {
+		  	this.parentNode.className = 'read';
+		  }
 
 		  if (this.innerHTML.length == full.length) {
 		  	this.innerHTML = full.substring(0,100);
@@ -59,8 +61,14 @@
 		  }
 		}
 
+		function newMessage() {
+			window.geemails.push(window.getNewMessage());
+			counter.innerHTML = ("Total Messages: " + window.geemails.length);
+			addRow(window.geemails.length-1,inbox);
+		}
+
 		var bodies = []
-		var colNames = ["#","Sender","Subject","Date","Message"];
+		var colNames = ["Sender","Subject","Date","Message"];
 
       	var div = document.getElementById("main");
       	var counter = document.getElementById("counter");
@@ -74,27 +82,15 @@
 		}
 
 		var total = document.createTextNode("Total Messages: " + window.geemails.length);
-
 		counter.appendChild(total);
-		div.appendChild(document.createElement('hr'));
-
-		function newMessage() {
-			window.geemails.push(window.getNewMessage());
-			counter.innerHTML = ("Total Messages: " + window.geemails.length);
-			alert(window.geemails[window.geemails.length-1].body);
-			addRow(window.geemails.length-1,inbox);
-			alert("Bye");
-		}
-
-        setInterval(function(){newMessage(); }, 3000);
+        setInterval(function(){newMessage(); }, 6000);
       };
 
     </script>
 	</head>
 	<body>
-		<h1> Gee-mail </h1>
-		<div id="counter"></div>
-		<hr>
+		<div id="inboxTitle"><img src="gmail_logo.png"  height="30" width="42"> &nbsp;Inbox</div>
+		<div id="counter"> </div>
 		<div class="container" id="main">
 			<table id="inbox"></table>
 		</div>

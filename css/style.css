@@ -1,0 +1,60 @@
+<style>
+
+*	{
+	font-family: Arial;
+}
+
+h1	{
+	color:black;
+	font-weight: normal;
+	text-align:center;
+}
+
+#inboxTitle {
+    background-color: red;
+    text-indent: 10px;
+    padding-top: 10px;
+    font-size: 150%;
+    color: white;
+    text-align:left;
+}
+
+#counter {
+    background-color: red;
+    color: white;
+    text-align:right;
+}
+
+#inbox{
+	width:100%;
+}
+
+#inbox tr:hover {background-color: #ddd;}
+
+.head	{
+	background-color: red;
+	color: white;
+}
+
+.date{
+	color: blue;
+}
+
+.unread	{
+	column-width: 200px;
+	font-weight: bold;
+	outline: 1px solid;
+	outline-color: lightgrey;
+}
+
+.read	{
+
+	font-weight: normal;
+	outline: 1px solid;
+	outline-color: lightgrey;
+}
+
+.read td {
+	color: black;
+}
+</style>
